@@ -144,4 +144,20 @@ public class UserController {
     public R<UseAuthInfoVO> getUserAuthInfo(Long id) {
         return R.ok(userService.getUserAuthInfo(id));
     }
+
+    @PostMapping("/auths/status")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户的ID"),
+            @ApiImplicitParam(name = "authStatus", value = "用户的审核状态"),
+            @ApiImplicitParam(name = "authCode", value = "一组图片的唯一标识"),
+            @ApiImplicitParam(name = "remark", value = "审核拒绝的原因")
+    })
+    public R updateUserAuthStatus(@RequestParam(required = true) Long id,
+                                  @RequestParam(required = true) Integer authStatus,
+                                  @RequestParam(required = true) Long authCode,
+                                  String remark) {
+        // 审核: 1 修改user 里面的reviewStatus   2 在authAuditRecord 里面添加一条记录
+        userService.updateUserAuthStatus(id, authStatus, authCode, remark);
+        return R.ok();
+    }
 }

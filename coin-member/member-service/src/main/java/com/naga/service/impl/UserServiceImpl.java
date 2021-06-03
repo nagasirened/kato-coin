@@ -9,6 +9,7 @@ import com.naga.service.UserAuthInfoService;
 import com.naga.vo.UseAuthInfoVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,8 +20,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.UserMapper;
 import com.naga.domain.User;
 import com.naga.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService{
 
     @Autowired
@@ -88,5 +91,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
         }
         return new UseAuthInfoVO(user, userAuthInfoList, userAuthAuditRecordList);
+    }
+
+    /**
+     * 审核
+     * @param userId            被审核用户主键
+     * @param authStatus        审核状态
+     * @param authCode          审核信息的唯一authCode
+     * @param remark            拒绝的原因
+     */
+    @Override
+    public void updateUserAuthStatus(Long userId, Integer authStatus, Long authCode, String remark) {
+        User user = new User();
+        user.setReviewsStatus(authStatus);
+        user.setId(userId);
+        this.updateById(user);
+
+        // 新增审核记录
+        String authUserId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        UserAuthAuditRecord userAuthAuditRecord = new UserAuthAuditRecord();
+        userAuthAuditRecord.setUserId(userId);
+        userAuthAuditRecord.setAuthCode(authCode);
+        userAuthAuditRecord.setStatus(authStatus);
+        userAuthAuditRecord.setRemark(remark);
+        userAuthAuditRecord.setAuditUserId(Long.parseLong(authUserId));
+        // TODO  审核人名称，远程调用admin-service  因为管理员和非管理员不是一个库
+        userAuthAuditRecord.setAuditUserName("test");
+
+        userAuthAuditRecordService.save(userAuthAuditRecord);
     }
 }

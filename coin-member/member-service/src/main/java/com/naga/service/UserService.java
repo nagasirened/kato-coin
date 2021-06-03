@@ -45,4 +45,12 @@ public interface UserService extends IService<User>{
      */
     UseAuthInfoVO getUserAuthInfo(Long id);
 
+    /**
+     * 审核
+     * @param userId            被审核用户主键
+     * @param authStatus        审核状态
+     * @param authCode          审核信息的唯一authCode
+     * @param remark            拒绝的原因
+     */
+    void updateUserAuthStatus(Long userId, Integer authStatus, Long authCode, String remark);
 }
