@@ -1,0 +1,8 @@
+[
+  {
+    "resource": "资源网关的名称，网关登陆时routes.id ||   api分组：api分组的名称",
+    "resourceMode": "0网关， 1api分组",
+    "intervalSec": "时间段范围，单位为秒，如60s",
+    "count": "限制次数，如10"
+  }
+]

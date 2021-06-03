@@ -1,0 +1,61 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos-server:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: admin-service-router
+          uri: lb://admin-service
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+        - id: member-service-router
+          uri: lb://member-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+
+        - id: test-router
+          uri: https://www.baidu.com/
+          predicates:
+            - Path=/s
+            # /test 网关自己内部会构建请求去访问要访问的地址，也就是百度 即：GET  https://www.baidu.com/s
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858
+        port: 8719
+      # sentinel.dashboard 自定义的规则，修改了新增了可以马上生效。但是一旦项目重启，就会失效
+      #                    nacos无法感知到因此建议复制粘贴规则到 nacos 里面
+      datasource:
+        # com.alibaba.csp.sentinel.datasource.nacos.NacosDataSource 使用nacos管理sentinel的配置时需要添加一个nacos-datasource依赖
+        ds1.nacos:
+          dataId: gw-flow
+          serverAddr: nacos-server:8848
+          ruleType: gw-flow
+        ds2.nacos:
+          dataId: api-group
+          serverAddr: nacos-server:8848
+          ruleType: gw-api-group
+        # 利用本地文件限流
+        #ds1.file:
+        #  file: classpath:gw-flow.json   # 网关 + API分组限流
+        #  ruleType: gw-flow
+        #ds2.file:
+        #  file: classpath:api-group.json
+        #  ruleType: gw-api-group
+  redis:
+    host: localhost
+    port: 6379
+    password:
