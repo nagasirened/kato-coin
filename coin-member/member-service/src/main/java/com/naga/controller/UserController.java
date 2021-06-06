@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -159,5 +160,18 @@ public class UserController {
         // 审核: 1 修改user 里面的reviewStatus   2 在authAuditRecord 里面添加一条记录
         userService.updateUserAuthStatus(id, authStatus, authCode, remark);
         return R.ok();
+    }
+
+
+    @GetMapping("/current/info")
+    @ApiOperation(value = "获取当前登录用户的详情")
+    public R<User> currentUserInfo(){
+        String idStr = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User user = userService.getById(Long.valueOf(idStr));
+        user.setPassword("*****");
+        user.setPaypassword("*****");
+        user.setAccessKeyId("*****");
+        user.setAccessKeySecret("*****");
+        return R.ok(user) ;
     }
 }

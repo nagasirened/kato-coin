@@ -43,5 +43,10 @@ public class GeetestController {
         redisTemplate.opsForValue().set(GeetestLib.GEETEST_SERVER_STATUS_SESSION_KEY + ":" + uuid, registerResult.getStatus());
         redisTemplate.opsForValue().set(GeetestLib.GEETEST_SERVER_USER_KEY + ":" + uuid, uuid);
         return R.ok(registerResult.getData());
+        /***
+         * 结果示例：
+         * {"code":200,"msg":null,"data":"{\"success\":1,\"new_captcha\":true,\"challenge\":\"70aa48a476d95629c3f0caf59940bf59\",\"gt\":\"3a01ffc01c1d63b37c3dbe8ee9555290\"}"}
+         * 当challenge和gt两个值存在，就代表是正确的
+         */
     }
 }
