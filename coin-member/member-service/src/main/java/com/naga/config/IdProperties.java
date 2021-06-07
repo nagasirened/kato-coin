@@ -6,7 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 阿里云：身份证二要素服务
- * 购买之后，搜索云市场，记录自己的 AppKey  AppSecret 和 AppCode
+ * 购买之后，搜索云市场，记录自己的 AppKey:203948903
+ * AppSecret:RsAxG2Hfopki0l4OCgn7wEInTY59Vllc 和 AppCode:bd6ccd97b0ec45999fdf6a9dee7bb6d3
  */
 
 @Data

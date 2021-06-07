@@ -2,17 +2,22 @@ package com.naga.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.naga.config.IdAutoConfiguration;
 import com.naga.domain.UserAuthAuditRecord;
 import com.naga.domain.UserAuthInfo;
+import com.naga.geetest.GeetestLib;
 import com.naga.service.UserAuthAuditRecordService;
 import com.naga.service.UserAuthInfoService;
 import com.naga.vo.UseAuthInfoVO;
+import com.naga.vo.UserAuthForm;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +36,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private UserAuthAuditRecordService userAuthAuditRecordService;
+
+    @Autowired
+    private GeetestLib geetestLib;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 条件分页查询会员的列表
@@ -119,5 +130,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userAuthAuditRecord.setAuditUserName("test");
 
         userAuthAuditRecordService.save(userAuthAuditRecord);
+    }
+
+    @Override
+    public boolean identifyVerify(UserAuthForm userAuthForm) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User user = getById(Long.parseLong(userId));
+        if (!user.getAuthStatus().equals(0)) {
+            throw new IllegalArgumentException("用户已认证成功");
+        }
+        // 极验验证
+        checkForm(userAuthForm);
+        // 实名认证
+        boolean result = IdAutoConfiguration.checkId(userAuthForm.getIdCard(), userAuthForm.getRealName());
+        if (!result) {
+            throw new IllegalArgumentException("用户信息错误");
+        }
+
+        user.setAuthStatus(1);
+        user.setAuthtime(new Date());
+        user.setRealName(userAuthForm.getRealName());
+        user.setIdCard(userAuthForm.getIdCard());
+        user.setIdCardType(userAuthForm.getIdCardType());
+        return updateById(user);
+    }
+
+    private void checkForm(UserAuthForm userAuthForm) {
+        userAuthForm.check(userAuthForm, geetestLib, redisTemplate);
     }
 }

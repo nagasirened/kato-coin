@@ -6,6 +6,7 @@ import com.naga.domain.User;
 import com.naga.model.R;
 import com.naga.service.UserService;
 import com.naga.vo.UseAuthInfoVO;
+import com.naga.vo.UserAuthForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -173,5 +174,14 @@ public class UserController {
         user.setAccessKeyId("*****");
         user.setAccessKeySecret("*****");
         return R.ok(user) ;
+    }
+
+    @PostMapping("/authAccount")
+    @ApiOperation(value = "用户的实名认证（如身份证）")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "" ,value = "")
+    })
+    public R identifyCheck(@RequestBody UserAuthForm userAuthForm){
+        return userService.identifyVerify(userAuthForm) ? R.ok() : R.fail();
     }
 }

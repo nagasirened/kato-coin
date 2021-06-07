@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.naga.vo.UseAuthInfoVO;
+import com.naga.vo.UserAuthForm;
 
 public interface UserService extends IService<User>{
 
@@ -53,4 +54,11 @@ public interface UserService extends IService<User>{
      * @param remark            拒绝的原因
      */
     void updateUserAuthStatus(Long userId, Integer authStatus, Long authCode, String remark);
+
+    /**
+     * 用户的实名认证信息
+     * @param userAuthForm      实名认证信息
+     * @return  boolean
+     */
+    boolean identifyVerify(UserAuthForm userAuthForm);
 }
