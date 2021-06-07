@@ -1,5 +1,6 @@
 package com.naga.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.config.IdAutoConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -130,6 +132,49 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userAuthAuditRecord.setAuditUserName("test");
 
         userAuthAuditRecordService.save(userAuthAuditRecord);
+    }
+
+    @Override
+    public User getById(Serializable id) {
+        User user = super.getById(id);
+        if (Objects.isNull(user)) {
+            throw new IllegalArgumentException("用户不存在");
+        }
+
+        Integer seniorAuthStatus;
+        String seniorAuthDesc;
+        // reviewsStatus, 审核状态 1通过,2拒绝,0待审核
+        Integer reviewsStatus = user.getReviewsStatus();
+        if (Objects.isNull(reviewsStatus)) {
+            seniorAuthStatus = 0;
+            seniorAuthDesc = "资料未填写";
+        } else {
+            switch (reviewsStatus) {
+                case 1:
+                    seniorAuthStatus = 1;
+                    seniorAuthDesc = "审核通过";
+                    break;
+                case 2:
+                    seniorAuthStatus = 2;
+                    // 时间倒序排列的错误原因
+                    List<UserAuthAuditRecord> userAuthAuditRecordList = userAuthAuditRecordService.getUserAuthAuditRecordList(user.getId());
+                    if (CollectionUtil.isNotEmpty(userAuthAuditRecordList)) {
+                        seniorAuthDesc = userAuthAuditRecordList.get(0).getRemark();
+                    } else {
+                        seniorAuthDesc = "未知原因";
+                    }
+                    break;
+                case 0:
+                    seniorAuthStatus = 0;
+                    seniorAuthDesc = "待审核";
+                    break;
+                default:
+                    throw new RuntimeException("获取高级认证信息错误");
+            }
+        }
+        user.setSeniorAuthStatus(seniorAuthStatus);
+        user.setSeniorAuthDesc(seniorAuthDesc);
+        return user;
     }
 
     @Override
