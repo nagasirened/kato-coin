@@ -1,6 +1,7 @@
-package com.naga.geetest;
+package com.naga.config;
 
 
+import com.naga.geetest.GeetestLib;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.naga.geetest;
+package com.naga.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
