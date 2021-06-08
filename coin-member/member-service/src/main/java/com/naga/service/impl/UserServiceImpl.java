@@ -1,6 +1,7 @@
 package com.naga.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Snowflake;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.config.IdAutoConfiguration;
@@ -18,10 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.UserMapper;
@@ -44,6 +42,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private Snowflake snowflake;
 
     /**
      * 条件分页查询会员的列表
@@ -203,4 +204,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private void checkForm(UserAuthForm userAuthForm) {
         userAuthForm.check(userAuthForm, geetestLib, redisTemplate);
     }
+
+    /**
+     * 用户进行高级认证
+     * @param imgList   图片地址集合
+     */
+    @Override
+    public void authUser(List<String> imgList) {
+        if (CollectionUtil.isEmpty(imgList)) {
+            throw new IllegalArgumentException("用户证件信息为null");
+        }
+        String userIdStr = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        long userId = Long.parseLong(userIdStr);
+        User user = getById(Long.parseLong(userIdStr));
+        if (Objects.isNull(user)) {
+            throw new RuntimeException("处理异常，请重新登录");
+        }
+        long authCode = snowflake.nextId();
+        List<UserAuthInfo> userAuthInfoList = new ArrayList<>(imgList.size());
+        for (int i = 0; i < imgList.size(); i++) {
+            UserAuthInfo userAuthInfo = new UserAuthInfo();
+            userAuthInfo.setUserId(userId);
+            userAuthInfo.setAuthCode(authCode);
+            userAuthInfo.setImageUrl(imgList.get(i));
+            userAuthInfo.setSerialno(i + 1); // 1正面  2反面  3手持
+            userAuthInfoList.add(userAuthInfo);
+        }
+
+        userAuthInfoService.saveBatch(userAuthInfoList);
+        // 等待审核
+        user.setReviewsStatus(0);
+        updateById(user);
+    }
+
+
 }

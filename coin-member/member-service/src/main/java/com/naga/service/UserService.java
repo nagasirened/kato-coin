@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.naga.vo.UseAuthInfoVO;
 import com.naga.vo.UserAuthForm;
 
+import java.util.List;
+
 public interface UserService extends IService<User>{
 
     /**
@@ -61,4 +63,11 @@ public interface UserService extends IService<User>{
      * @return  boolean
      */
     boolean identifyVerify(UserAuthForm userAuthForm);
+
+    /**
+     * 用户进行高级认证
+     * @param imgList   图片地址集合
+     */
+    void authUser(List<String> imgList);
+
 }

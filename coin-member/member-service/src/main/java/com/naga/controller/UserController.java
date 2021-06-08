@@ -18,6 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Arrays;
+
 @RestController
 @RequestMapping("/users")
 @Api(tags = "会员的控制器")
@@ -176,6 +178,7 @@ public class UserController {
         return R.ok(user) ;
     }
 
+
     @PostMapping("/authAccount")
     @ApiOperation(value = "用户的实名认证（如身份证）")
     @ApiImplicitParams({
@@ -183,5 +186,16 @@ public class UserController {
     })
     public R identifyCheck(@RequestBody UserAuthForm userAuthForm){
         return userService.identifyVerify(userAuthForm) ? R.ok() : R.fail();
+    }
+
+
+    @PostMapping("/authUser")
+    @ApiOperation(value = "用户进行高级认证，即上传了身份证信息后点击认证")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "imgs",value ="用户的图片地址" )
+    })
+    public  R authUser(@RequestBody  String[] imgs){
+        userService.authUser(Arrays.asList(imgs)) ;
+        return R.ok() ;
     }
 }
