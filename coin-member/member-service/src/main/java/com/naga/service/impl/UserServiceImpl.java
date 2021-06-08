@@ -210,6 +210,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @param imgList   图片地址集合
      */
     @Override
+    @Transactional
     public void authUser(List<String> imgList) {
         if (CollectionUtil.isEmpty(imgList)) {
             throw new IllegalArgumentException("用户证件信息为null");
