@@ -6,15 +6,10 @@ import com.google.common.collect.Lists;
 import com.naga.domain.SysMenu;
 import com.naga.domain.SysPrivilege;
 import com.naga.model.RolePrivilegeParam;
-import com.naga.service.SysMenuService;
-import com.naga.service.SysPrivilegeService;
-import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -22,7 +17,6 @@ import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.SysRolePrivilegeMapper;
 import com.naga.domain.SysRolePrivilege;
-import com.naga.service.SysRolePrivilegeService;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

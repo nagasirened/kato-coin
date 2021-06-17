@@ -4,12 +4,11 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.SysUserRole;
-import com.naga.service.SysUserRoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.SysUserMapper;
 import com.naga.domain.SysUser;
-import com.naga.service.SysUserService;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

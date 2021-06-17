@@ -32,6 +32,11 @@
             <artifactId>json</artifactId>
             <version>20171018</version>
         </dependency>
+        <!-- 阿里sms服务 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alicloud-sms</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

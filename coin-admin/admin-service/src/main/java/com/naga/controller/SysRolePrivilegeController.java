@@ -3,7 +3,6 @@ package com.naga.controller;
 import com.naga.domain.SysMenu;
 import com.naga.model.R;
 import com.naga.model.RolePrivilegeParam;
-import com.naga.service.SysRolePrivilegeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

@@ -2,7 +2,6 @@ package com.naga.controller;
 
 
 import com.naga.model.LoginResult;
-import com.naga.service.SysLoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

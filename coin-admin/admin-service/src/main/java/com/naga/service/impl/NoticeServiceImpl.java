@@ -9,7 +9,7 @@ import java.util.Objects;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.NoticeMapper;
 import com.naga.domain.Notice;
-import com.naga.service.NoticeService;
+
 @Service
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService{
 

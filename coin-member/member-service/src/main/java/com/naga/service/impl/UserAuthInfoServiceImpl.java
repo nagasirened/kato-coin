@@ -8,7 +8,6 @@ import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.UserAuthInfoMapper;
 import com.naga.domain.UserAuthInfo;
-import com.naga.service.UserAuthInfoService;
 
 
 @Service

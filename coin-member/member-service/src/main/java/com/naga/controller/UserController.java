@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.User;
 import com.naga.model.R;
-import com.naga.service.UserService;
 import com.naga.vo.UseAuthInfoVO;
 import com.naga.vo.UserAuthForm;
 import io.swagger.annotations.Api;

@@ -8,8 +8,6 @@ import com.naga.config.IdAutoConfiguration;
 import com.naga.domain.UserAuthAuditRecord;
 import com.naga.domain.UserAuthInfo;
 import com.naga.geetest.GeetestLib;
-import com.naga.service.UserAuthAuditRecordService;
-import com.naga.service.UserAuthInfoService;
 import com.naga.vo.UseAuthInfoVO;
 import com.naga.vo.UserAuthForm;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +22,6 @@ import java.util.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.naga.mapper.UserMapper;
 import com.naga.domain.User;
-import com.naga.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

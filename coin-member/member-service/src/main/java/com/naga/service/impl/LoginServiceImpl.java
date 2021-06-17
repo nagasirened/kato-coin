@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.naga.feign.JwtToken;
 import com.naga.feign.OAuth2FeignClient;
 import com.naga.geetest.GeetestLib;
-import com.naga.service.LoginService;
 import com.naga.vo.LoginForm;
 import com.naga.vo.LoginUserVO;
 import lombok.extern.slf4j.Slf4j;
