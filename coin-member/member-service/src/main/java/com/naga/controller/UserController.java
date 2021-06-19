@@ -3,11 +3,11 @@ package com.naga.controller;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.User;
+import com.naga.dto.UserDto;
+import com.naga.feign.UserServiceFeign;
 import com.naga.model.R;
 import com.naga.service.UserService;
-import com.naga.vo.UpdatePhoneParam;
-import com.naga.vo.UseAuthInfoVO;
-import com.naga.vo.UserAuthForm;
+import com.naga.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @Api(tags = "会员的控制器")
-public class UserController {
+public class UserController implements UserServiceFeign {
 
     @Autowired
     @SuppressWarnings("all")
@@ -195,7 +196,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "imgs",value ="用户的图片地址" )
     })
-    public  R authUser(@RequestBody  String[] imgs){
+    public R authUser(@RequestBody  String[] imgs){
         userService.authUser(Arrays.asList(imgs)) ;
         return R.ok() ;
     }
@@ -220,4 +221,37 @@ public class UserController {
                            @RequestParam String countryCode){
         return userService.checkNewPhone(mobile,countryCode) ? R.ok():R.fail("新的手机号校验失败");
     }
+
+    /**
+     * 用于admin-service 里面远程调用member-service
+     * @param ids   用户主键集合
+     * @return  List<UserDto>
+     */
+    @Override
+    public List<UserDto> getBasicUsers(List<Long> ids) {
+        return userService.getBasicUsers(ids);
+    }
+
+    @PostMapping("/register")
+    @ApiOperation(value = "用户的注册")
+    public R register(@RequestBody RegisterParam registerParam) {
+        return userService.register(registerParam) ? R.ok() : R.fail("注册失败");
+    }
+
+    @PostMapping("/setPassword")
+    @ApiOperation(value = "用户重置密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "unSetPasswordParam", value = "unSetPasswordParam json")
+    })
+    public R unsetPassword(@RequestBody @Validated UnSetPasswordParam unSetPasswordParam) {
+        return userService.unsetLoginPwd(unSetPasswordParam) ? R.ok() : R.fail("重置失败");
+    }
+
+    @PostMapping("/setPayPassword")
+    @ApiOperation(value = "重新设置交易密码")
+    public R setPayPassword(@RequestBody @Validated UnsetPayPasswordParam unsetPayPasswordParam) {
+        Long userId = Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        return userService.unsetPayPassword(unsetPayPasswordParam) ? R.ok() : R.fail("重置失败");
+    }
+
 }

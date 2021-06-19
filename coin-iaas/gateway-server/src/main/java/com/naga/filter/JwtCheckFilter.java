@@ -28,7 +28,7 @@ public class JwtCheckFilter implements GlobalFilter, Ordered {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Value("${security.pass.paths:/admin/login,/user/gt/register,/user/login}")
+    @Value("${security.pass.paths:/admin/login,/user/gt/register,/user/login, /user/users/register}")
     private Set<String> passPaths;
 
 

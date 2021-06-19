@@ -33,14 +33,14 @@ public class GeetestForm {
     @ApiModelProperty(value = "极验的seccode")
     public String geetestSeccode;
 
-    public void check(GeetestForm geetestForm, GeetestLib geetestLib, RedisTemplate<String, Object> redisTemplate) {
-        String challenge = geetestForm.getGeetestChallenge();
-        String validate = geetestForm.getGeetestValidate();
-        String seccode = geetestForm.getGeetestSeccode();
+    public void check(GeetestLib geetestLib, RedisTemplate<String, Object> redisTemplate) {
+        String challenge = this.getGeetestChallenge();
+        String validate = this.getGeetestValidate();
+        String seccode = this.getGeetestSeccode();
         // session必须取出值，若取不出值，直接当做异常退出
         String statusStr = Optional.ofNullable(String.valueOf(redisTemplate.opsForValue().get(GeetestLib.GEETEST_SERVER_STATUS_SESSION_KEY))).orElse("0");
         int status = Integer.parseInt(statusStr);
-        String userId = Optional.ofNullable(String.valueOf(redisTemplate.opsForValue().get(GeetestLib.GEETEST_SERVER_USER_KEY + ":" + geetestForm.getUuid()))).orElse("");
+        String userId = Optional.ofNullable(String.valueOf(redisTemplate.opsForValue().get(GeetestLib.GEETEST_SERVER_USER_KEY + ":" + this.getUuid()))).orElse("");
         GeetestLibResult result;
         if (status == 1) {
             /*
