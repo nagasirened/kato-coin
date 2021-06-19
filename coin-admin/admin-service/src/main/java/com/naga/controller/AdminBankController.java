@@ -63,7 +63,9 @@ public class AdminBankController {
     })
     @PreAuthorize("hasAuthority('web_config_update')")
     public R updateAdminBank(Long bankId, Integer status) {
-        AdminBank adminBank = AdminBank.builder().id(bankId).status(status).build();
+        AdminBank adminBank = new AdminBank();
+        adminBank.setStatus(status);
+        adminBank.setId(bankId);
         return adminBankService.updateById(adminBank) ? R.ok() : R.fail();
     }
 }

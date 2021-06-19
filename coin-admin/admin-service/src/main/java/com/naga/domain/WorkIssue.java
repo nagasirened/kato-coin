@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
     */
 @ApiModel(value="com-naga-domain-WorkIssue")
 @Data
-@Builder
 @NoArgsConstructor
 @TableName(value = "work_issue")
 public class WorkIssue {

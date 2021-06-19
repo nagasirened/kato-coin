@@ -18,7 +18,6 @@ import javax.validation.constraints.NotEmpty;
  */
 @ApiModel(value = "com-naga-domain-AdminBank")
 @Data
-@Builder
 @NoArgsConstructor
 @TableName(value = "admin_bank")
 public class AdminBank {

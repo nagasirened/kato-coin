@@ -57,11 +57,10 @@ public class WorkIssueController {
     })
     @PreAuthorize("hasAuthority('work_issue_update')")
     public R answerWorkIssue(Long id, String answer) {
-        WorkIssue workIssue = WorkIssue.builder()
-                .id(id)
-                .answer(answer)
-                .answerUserId(Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()))
-                .build();
+        WorkIssue workIssue = new WorkIssue();
+        workIssue.setId(id);
+        workIssue.setAnswer(answer);
+        workIssue.setAnswerUserId(Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()));
         return workIssueService.updateById(workIssue) ? R.ok() : R.fail();
     }
 }

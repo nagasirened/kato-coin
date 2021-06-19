@@ -8,16 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 
 import javax.validation.constraints.NotEmpty;
 
 /**
     * 系统资讯公告信息
     */
-@ApiModel(value="com-naga-domain-Notice")
+@ApiModel(value="cnaga-domain-Notice")
 @Data
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 @TableName(value = "notice")
 public class Notice {
     @TableId(value = "id", type = IdType.INPUT)

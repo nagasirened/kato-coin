@@ -65,7 +65,9 @@ public class NoticeController {
     })
     @PreAuthorize("hasAuthority('notice_update')")
     public R updateStatus(Long id, Integer status) {
-        Notice notice = Notice.builder().id(id).status(status).build();
+        Notice notice = new Notice();
+        notice.setId(id);
+        notice.setStatus(status);
         return noticeService.updateById(notice) ? R.ok() : R.fail();
     }
 
