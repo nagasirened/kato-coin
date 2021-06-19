@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.UserBank;
 import com.naga.model.R;
+import com.naga.service.UserBankService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -68,6 +69,19 @@ public class UserBankController {
     @PreAuthorize("hasAuthority('user_bank_create')")
     public R createUserBank(@RequestBody @Validated UserBank userBank){
         return userBankService.save(userBank) ? R.ok() : R.fail();
+    }
+
+    @GetMapping("/current")
+    @ApiOperation(value = "查询用户的卡号")
+    public R<UserBank> currentUserBank(){
+        UserBank userBank = userBankService.getCurrentUserBank();
+        return R.ok(userBank);
+    }
+
+    @PostMapping("/bind")
+    @ApiOperation(value = "绑定银行卡")
+    public R bindBank(@RequestBody @Validated UserBank userBank) {
+        return userBankService.bindBank(userBank) ? R.ok() : R.fail();
     }
 }
 

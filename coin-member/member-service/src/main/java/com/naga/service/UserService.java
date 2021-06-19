@@ -3,6 +3,7 @@ package com.naga.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.naga.vo.UpdatePhoneParam;
 import com.naga.vo.UseAuthInfoVO;
 import com.naga.vo.UserAuthForm;
 
@@ -70,4 +71,18 @@ public interface UserService extends IService<User>{
      */
     void authUser(List<String> imgList);
 
+    /**
+     * 修改电话号码
+     * @param updatePhoneParam 修改电话号码Form表单
+     * @return 是否成功
+     */
+    boolean updatePhone(UpdatePhoneParam updatePhoneParam);
+
+    /**
+     * 检查手机号是否可用
+     * @param mobile    手机号码
+     * @param countryCode   国家区号
+     * @return  验证是否成功
+     */
+    boolean checkNewPhone(String mobile, String countryCode);
 }

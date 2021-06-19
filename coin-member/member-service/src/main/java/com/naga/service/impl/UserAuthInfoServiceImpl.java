@@ -2,6 +2,7 @@ package com.naga.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.naga.service.UserAuthInfoService;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import com.naga.domain.UserAuthInfo;
 
 
 @Service
-public class UserAuthInfoServiceImpl extends ServiceImpl<UserAuthInfoMapper, UserAuthInfo> implements UserAuthInfoService{
+public class UserAuthInfoServiceImpl extends ServiceImpl<UserAuthInfoMapper, UserAuthInfo> implements UserAuthInfoService {
 
     /**
      * 用户未被认证,根据userId查询用户提交的审核信息

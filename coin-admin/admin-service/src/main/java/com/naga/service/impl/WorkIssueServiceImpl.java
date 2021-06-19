@@ -2,6 +2,7 @@ package com.naga.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.naga.service.WorkIssueService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import com.naga.mapper.WorkIssueMapper;
 import com.naga.domain.WorkIssue;
 
 @Service
-public class WorkIssueServiceImpl extends ServiceImpl<WorkIssueMapper, WorkIssue> implements WorkIssueService{
+public class WorkIssueServiceImpl extends ServiceImpl<WorkIssueMapper, WorkIssue> implements WorkIssueService {
 
     /**
      * 分页查询工单信息

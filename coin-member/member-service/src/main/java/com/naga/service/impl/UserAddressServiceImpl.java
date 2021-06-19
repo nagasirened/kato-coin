@@ -2,6 +2,7 @@ package com.naga.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.naga.service.UserAddressService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -12,7 +13,7 @@ import com.naga.domain.UserAddress;
 
 
 @Service
-public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserAddress> implements UserAddressService{
+public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserAddress> implements UserAddressService {
 
     /**
      * 通过用户的Id 分页查询用户的钱包地址

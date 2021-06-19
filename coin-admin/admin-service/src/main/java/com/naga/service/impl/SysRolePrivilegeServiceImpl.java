@@ -6,6 +6,9 @@ import com.google.common.collect.Lists;
 import com.naga.domain.SysMenu;
 import com.naga.domain.SysPrivilege;
 import com.naga.model.RolePrivilegeParam;
+import com.naga.service.SysMenuService;
+import com.naga.service.SysPrivilegeService;
+import com.naga.service.SysRolePrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,7 @@ import com.naga.domain.SysRolePrivilege;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class SysRolePrivilegeServiceImpl extends ServiceImpl<SysRolePrivilegeMapper, SysRolePrivilege> implements SysRolePrivilegeService{
+public class SysRolePrivilegeServiceImpl extends ServiceImpl<SysRolePrivilegeMapper, SysRolePrivilege> implements SysRolePrivilegeService {
 
     @Autowired
     private SysMenuService sysMenuService;

@@ -1,5 +1,7 @@
 package com.naga.service.impl;
 
+import com.naga.service.SysMenuService;
+import com.naga.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +11,7 @@ import com.naga.mapper.SysMenuMapper;
 import com.naga.domain.SysMenu;
 
 @Service
-public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService{
+public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
 
     @Autowired
     private SysMenuMapper sysMenuMapper;

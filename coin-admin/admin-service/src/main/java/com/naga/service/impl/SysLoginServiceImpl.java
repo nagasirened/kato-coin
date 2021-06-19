@@ -10,6 +10,8 @@ import com.naga.domain.SysMenu;
 import com.naga.feign.JwtToken;
 import com.naga.feign.OAuth2FeignClient;
 import com.naga.model.LoginResult;
+import com.naga.service.SysLoginService;
+import com.naga.service.SysMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

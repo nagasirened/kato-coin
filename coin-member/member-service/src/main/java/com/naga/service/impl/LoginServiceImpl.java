@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.naga.feign.JwtToken;
 import com.naga.feign.OAuth2FeignClient;
 import com.naga.geetest.GeetestLib;
+import com.naga.service.LoginService;
 import com.naga.vo.LoginForm;
 import com.naga.vo.LoginUserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -45,11 +46,8 @@ public class LoginServiceImpl implements LoginService {
         if (jwtTokenResponseEntity.getStatusCode().equals(HttpStatus.OK)) {
             JwtToken jwtToken = jwtTokenResponseEntity.getBody();
             // token 必须包含bearer
-            LoginUserVO loginUserVO = LoginUserVO.builder()
-                    .accessToken(jwtToken.getTokenType() + " " +jwtToken.getAccessToken())
-                    .refreshToken(jwtToken.getRefreshToken())
-                    .expire(jwtToken.getExpires_in())
-                    .username(loginForm.getUsername()).build();
+            LoginUserVO loginUserVO = new LoginUserVO(loginForm.getUsername(), jwtToken.getExpires_in(),
+                    jwtToken.getTokenType() + " " +jwtToken.getAccessToken(), jwtToken.getRefreshToken());
             // 使用网关解决登出的问题: token 是直接存储的
             redisTemplate.opsForValue().set(jwtToken.getAccessToken(), "", jwtToken.getExpires_in(), TimeUnit.SECONDS);
             return loginUserVO;

@@ -2,6 +2,7 @@ package com.naga.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.naga.service.NoticeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import com.naga.mapper.NoticeMapper;
 import com.naga.domain.Notice;
 
 @Service
-public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService{
+public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
 
     @Override
     public Page<Notice> findByPage(Page<Notice> page, String title, String startTime, String endTime, Integer status) {

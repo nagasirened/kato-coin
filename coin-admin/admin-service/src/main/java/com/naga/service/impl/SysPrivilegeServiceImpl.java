@@ -2,6 +2,7 @@ package com.naga.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.naga.service.SysPrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import com.naga.domain.SysPrivilege;
 import com.naga.mapper.SysPrivilegeMapper;
 
 @Service
-public class SysPrivilegeServiceImpl extends ServiceImpl<SysPrivilegeMapper, SysPrivilege> implements SysPrivilegeService{
+public class SysPrivilegeServiceImpl extends ServiceImpl<SysPrivilegeMapper, SysPrivilege> implements SysPrivilegeService {
 
     @Autowired
     private SysPrivilegeMapper sysPrivilegeMapper;

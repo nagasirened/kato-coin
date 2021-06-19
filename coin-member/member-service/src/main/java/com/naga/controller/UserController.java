@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.User;
 import com.naga.model.R;
+import com.naga.service.UserService;
+import com.naga.vo.UpdatePhoneParam;
 import com.naga.vo.UseAuthInfoVO;
 import com.naga.vo.UserAuthForm;
 import io.swagger.annotations.Api;
@@ -196,5 +198,26 @@ public class UserController {
     public  R authUser(@RequestBody  String[] imgs){
         userService.authUser(Arrays.asList(imgs)) ;
         return R.ok() ;
+    }
+
+    @PostMapping("/phone")
+    @ApiOperation(value = "修改手机号")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "updatePhoneParam",value = "updatePhoneParam 的json数据")
+    })
+    public R updatePhone(@RequestBody UpdatePhoneParam updatePhoneParam){
+        return userService.updatePhone(updatePhoneParam) ? R.ok() : R.fail();
+    }
+
+
+    @GetMapping("/checkTel")
+    @ApiOperation(value = "检查新的手机号是否可用,如可用,则给该新手机发送验证码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "mobile", value = "新的手机号"),
+            @ApiImplicitParam(name = "countryCode", value = "手机号的区域")
+    })
+    public R checkNewPhone(@RequestParam String mobile,
+                           @RequestParam String countryCode){
+        return userService.checkNewPhone(mobile,countryCode) ? R.ok():R.fail("新的手机号校验失败");
     }
 }

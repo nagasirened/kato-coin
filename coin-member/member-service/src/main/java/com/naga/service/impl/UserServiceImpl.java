@@ -5,9 +5,15 @@ import cn.hutool.core.lang.Snowflake;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.config.IdAutoConfiguration;
+import com.naga.domain.Sms;
 import com.naga.domain.UserAuthAuditRecord;
 import com.naga.domain.UserAuthInfo;
 import com.naga.geetest.GeetestLib;
+import com.naga.service.SmsService;
+import com.naga.service.UserAuthAuditRecordService;
+import com.naga.service.UserAuthInfoService;
+import com.naga.service.UserService;
+import com.naga.vo.UpdatePhoneParam;
 import com.naga.vo.UseAuthInfoVO;
 import com.naga.vo.UserAuthForm;
 import org.apache.commons.lang3.StringUtils;
@@ -26,13 +32,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService{
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
+    @SuppressWarnings("all")
     private UserAuthInfoService userAuthInfoService;
 
     @Autowired
+    @SuppressWarnings("all")
     private UserAuthAuditRecordService userAuthAuditRecordService;
+
+    @Autowired
+    private SmsService smsService;
 
     @Autowired
     private GeetestLib geetestLib;
@@ -233,6 +244,52 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 等待审核
         user.setReviewsStatus(0);
         updateById(user);
+    }
+
+    /**
+     * 修改电话号码
+     * @param updatePhoneParam 修改电话号码Form表单
+     * @return 是否成功
+     */
+    @Override
+    public boolean updatePhone(UpdatePhoneParam updatePhoneParam) {
+        long userId = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        User user = getById(userId);
+        // 验证新旧手机的验证码
+        String oldVerifyCode = String.valueOf(Optional.ofNullable(redisTemplate.opsForValue().get("SMS:VERIFY_OLD_PHONE:" + user.getMobile())).orElse(""));
+        if (!updatePhoneParam.getOldValidateCode().equals(oldVerifyCode)) {
+            throw new IllegalArgumentException("旧手机的验证码错误");
+        }
+
+        String newVerifyCode = String.valueOf(Optional.ofNullable(redisTemplate.opsForValue().get("SMS:CHANGE_PHONE_VERIFY:" + updatePhoneParam.getNewMobilePhone())).orElse(""));
+        if (!updatePhoneParam.getValidateCode().equals(newVerifyCode)) {
+            throw new IllegalArgumentException("新手机的验证码错误");
+        }
+        user.setMobile(updatePhoneParam.getNewMobilePhone());
+        return updateById(user);
+    }
+
+    /**
+     * 检查手机号是否可用
+     * @param mobile    手机号码
+     * @param countryCode   国家区号
+     * @return  验证是否成功
+     */
+    @Override
+    public boolean checkNewPhone(String mobile, String countryCode) {
+        int count = count(new LambdaQueryWrapper<User>()
+                .eq(User::getMobile, mobile)
+                .eq(User::getCountryCode,countryCode));
+        // 有用户占用这个手机号
+        if(count>0) {
+            throw new IllegalArgumentException("该手机号已经被占用");
+        }
+        // 2 向新的手机发送短信
+        Sms sms = new Sms();
+        sms.setMobile(mobile);
+        sms.setCountryCode(countryCode);
+        sms.setTemplateCode("CHANGE_PHONE_VERIFY");
+        return smsService.sendMsg(sms) ;
     }
 
 
