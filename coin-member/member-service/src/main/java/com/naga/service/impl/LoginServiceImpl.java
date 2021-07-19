@@ -23,6 +23,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private OAuth2FeignClient oAuth2FeignClient;
 
+    /**
+     * client和secret 共同组成的BasicToken
+     */
     @Value("${basic.token:Basic Y29pbi1hcGk6Y29pbi1zZWNyZXQ=}")
     private String basicToken;
 

@@ -12,7 +12,7 @@ spring:
       discovery:
         locator:
           enabled: true
-          lower-case-service-id: true
+          lower-case-service-id: true   # 自定小写匹配
       routes:
         - id: admin-service-router
           uri: lb://admin-service

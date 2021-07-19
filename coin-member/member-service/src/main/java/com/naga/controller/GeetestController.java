@@ -28,6 +28,9 @@ public class GeetestController {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 极验校验后返回校验结果
+     */
     @GetMapping("/register")
     public R<String> gtRegister(String uuid) {
         String digestmod = "md5";
