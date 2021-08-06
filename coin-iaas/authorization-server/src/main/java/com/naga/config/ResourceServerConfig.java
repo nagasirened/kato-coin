@@ -12,5 +12,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+    /**
+     * 资源服务器的默认实现：在Controller中的/user/info接口中，从header中获取token，然后默认向认证服务器获取 Principal 信息
+     */
 
 }

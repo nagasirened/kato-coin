@@ -7,15 +7,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos-server:8848
+        server-addr: nacos-server:8848  # 修改hosts文件
     gateway:
       discovery:
         locator:
-          enabled: true
-          lower-case-service-id: true   # 自定小写匹配
+          enabled: true                 # 服务发现
+          lower-case-service-id: true   # 小驼峰规则：自动将大写的内容小写，防止大小写不同导致不可用
       routes:
-        - id: admin-service-router
-          uri: lb://admin-service
+        - id: admin-service-router      # route命名
+          uri: lb://admin-service       # 转发到哪个地址
           predicates:
             - Path=/admin/**
           filters:
@@ -37,7 +37,7 @@ spring:
         dashboard: 127.0.0.1:8858
         port: 8719
       # sentinel.dashboard 自定义的规则，修改了新增了可以马上生效。但是一旦项目重启，就会失效
-      #                    nacos无法感知到因此建议复制粘贴规则到 nacos 里面
+      #                    nacos 无法感知到因此建议复制粘贴规则到 nacos 里面
       datasource:
         # com.alibaba.csp.sentinel.datasource.nacos.NacosDataSource 使用nacos管理sentinel的配置时需要添加一个nacos-datasource依赖
         ds1.nacos:
