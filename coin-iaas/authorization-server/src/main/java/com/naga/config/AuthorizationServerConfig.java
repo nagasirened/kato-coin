@@ -66,6 +66,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
     /**
      * 配置验证管理器
+     * 不适用jwt的话，可能造成授权服务器压力过大
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -87,6 +88,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         // 加载私钥
         ClassPathResource classPathResource = new ClassPathResource("coinexchange.jks");
+        // coinexchange 是生成公钥时传入的盐
         KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(classPathResource, "coinexchange".toCharArray());
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("coinexchange", "coinexchange".toCharArray()));
         return converter;
@@ -97,11 +99,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new RedisTokenStore(redisConnectionFactory);
     }
     */
-
-
-    public static void main(String[] args) {
-        double log = Math.log(8) / Math.log(2);
-        System.out.println(log);
-    }
 
 }

@@ -28,7 +28,7 @@ public class JwtCheckFilter implements GlobalFilter, Ordered {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Value("${security.pass.paths:/admin/login,/user/gt/register,/user/login, /user/users/register}")
+    @Value("${security.pass.paths:/admin/login,/user/gt/register,/user/login,/user/users/register}")
     private Set<String> passPaths;
 
 
@@ -59,8 +59,7 @@ public class JwtCheckFilter implements GlobalFilter, Ordered {
         if (StringUtils.isEmpty(token)) {
             return buildNoAuthorizationResult(exchange);
         }
-        Boolean hasKey = stringRedisTemplate.hasKey(token);
-        if (Objects.nonNull(hasKey) && hasKey) {
+        if (stringRedisTemplate.hasKey(token)) {
             return chain.filter(exchange);
         }
         return buildNoAuthorizationResult(exchange);
