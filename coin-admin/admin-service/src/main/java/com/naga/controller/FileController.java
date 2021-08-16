@@ -7,7 +7,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
+import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PolicyConditions;
+import com.aliyun.oss.model.PutObjectResult;
 import com.naga.model.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -59,10 +61,12 @@ public class FileController {
          * 2. 文件名称
          * 3. 文件的输入流
          */
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
         String fileName = DateUtil.today().replaceAll("-", "/") + "/" + file.getOriginalFilename();
-        ossClient.putObject(bucketName, fileName, file.getInputStream());
+        PutObjectResult putObjectResult = ossClient.putObject(bucketName, fileName, file.getInputStream(), metadata);
         String clientAddress = "https://" + bucketName + "." + endPointAddress + "/" + fileName;
-        log.info("FileController#fileUpload，上传图片能访问的地址为：{}", clientAddress);
+        log.info("FileController#fileUpload，上传图片能访问的地址为：{}, ETag: {}", clientAddress, putObjectResult.getETag());
         return R.ok(clientAddress);
     }
 

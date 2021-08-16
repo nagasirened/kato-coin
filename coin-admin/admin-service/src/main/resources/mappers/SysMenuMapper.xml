@@ -32,7 +32,7 @@
   </select>
 
   <select id="getAllMenus" resultMap="BaseResultMap">
-    select * from
+    select * from sys_menu
   </select>
 
 </mapper>

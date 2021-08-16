@@ -43,6 +43,7 @@ public class GeetestController {
         paramMap.put("client_type", "web");
         paramMap.put("ip_address", IpUtil.getIpAddr(servletRequestAttributes.getRequest()));
         GeetestLibResult registerResult = geetestLib.register(digestmod, paramMap);
+        // 设置极验的结果到redis中
         redisTemplate.opsForValue().set(GeetestLib.GEETEST_SERVER_STATUS_SESSION_KEY + ":" + uuid, registerResult.getStatus());
         redisTemplate.opsForValue().set(GeetestLib.GEETEST_SERVER_USER_KEY + ":" + uuid, uuid);
         return R.ok(registerResult.getData());

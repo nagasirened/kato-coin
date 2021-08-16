@@ -53,7 +53,7 @@ public class SysLoginServiceImpl implements SysLoginService {
         JwtToken jwtToken = tokenResponseEntity.getBody();
         log.info("SysLoginServiceImpl#jwtToken，用户 {} 获取token成功", username);
         String accessToken = jwtToken.getAccessToken();
-        // 2.获取菜单信息
+        // 2.获取菜单信息,根据userId查询（此处jwt的user_name属性被替换为了userId）
         Jwt jwt = JwtHelper.decode(accessToken);
         JSONObject jwtJson = JSON.parseObject(jwt.getClaims());
         Long userId = Long.valueOf(jwtJson.getString("user_name"));

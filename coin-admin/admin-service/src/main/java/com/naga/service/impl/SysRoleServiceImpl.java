@@ -20,10 +20,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public boolean isSuperAdmin(Long userId) {
         String roleCode = sysRoleMapper.getUserRoleCode(userId);
-        if (StringUtils.equals(roleCode, "ADMIN_ROLE")) {
-            return true;
-        }
-        return false;
+        return StringUtils.equals(roleCode, "ADMIN_ROLE");
     }
 
     @Override
