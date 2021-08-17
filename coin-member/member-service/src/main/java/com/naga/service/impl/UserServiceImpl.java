@@ -11,7 +11,9 @@ import com.naga.config.IdAutoConfiguration;
 import com.naga.domain.Sms;
 import com.naga.domain.UserAuthAuditRecord;
 import com.naga.domain.UserAuthInfo;
+import com.naga.dto.SysUserDto;
 import com.naga.dto.UserDto;
+import com.naga.feign.AdminServiceFeign;
 import com.naga.geetest.GeetestLib;
 import com.naga.maps.UserDtoMapper;
 import com.naga.service.SmsService;
@@ -59,6 +61,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private Snowflake snowflake;
+
+    @Autowired
+    private AdminServiceFeign adminServiceFeign;
 
     /**
      * 条件分页查询会员的列表
@@ -142,10 +147,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userAuthAuditRecord.setAuthCode(authCode);
         userAuthAuditRecord.setStatus(authStatus);
         userAuthAuditRecord.setRemark(remark);
-        userAuthAuditRecord.setAuditUserId(Long.parseLong(authUserId));
-        // TODO  审核人名称，远程调用admin-service  因为管理员和非管理员不是一个库
-        userAuthAuditRecord.setAuditUserName("test");
-
+        long sysUserId = Long.parseLong(authUserId);
+        userAuthAuditRecord.setAuditUserId(sysUserId);
+        SysUserDto sysUserDto = adminServiceFeign.getSysUserInfo(sysUserId);
+        if (Objects.isNull(sysUserDto)) {
+            throw new RuntimeException("审核错误，管理员不存在");
+        }
+        userAuthAuditRecord.setAuditUserName(sysUserDto.getFullName());
         userAuthAuditRecordService.save(userAuthAuditRecord);
     }
 
@@ -204,7 +212,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 实名认证
         boolean result = IdAutoConfiguration.checkId(userAuthForm.getIdCard(), userAuthForm.getRealName());
         if (!result) {
-            throw new IllegalArgumentException("用户信息错误");
+            throw new IllegalArgumentException("用户信息错误，验证失败");
         }
 
         user.setAuthStatus(1);

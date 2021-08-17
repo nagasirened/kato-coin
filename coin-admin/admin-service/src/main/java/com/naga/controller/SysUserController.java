@@ -3,6 +3,8 @@ package com.naga.controller;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.SysUser;
+import com.naga.dto.SysUserDto;
+import com.naga.feign.AdminServiceFeign;
 import com.naga.model.R;
 import com.naga.service.SysUserService;
 import io.swagger.annotations.Api;
@@ -20,7 +22,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/user")
 @Api(tags = "员工管理")
-public class SysUserController {
+public class SysUserController implements AdminServiceFeign {
 
     @Autowired
     private SysUserService sysUserService;
@@ -71,5 +73,15 @@ public class SysUserController {
     public R deleteUser(Long[] ids) {
         boolean removeResult = sysUserService.removeByIds(Arrays.asList(ids));
         return removeResult ? R.ok() : R.fail();
+    }
+
+    /**
+     * feign获取User基础信息
+     * @param userId 管理员主键
+     * @return SysUserDto
+     */
+    @Override
+    public SysUserDto getSysUserInfo(Long userId) {
+        return sysUserService.getSysUserInfo(userId);
     }
 }

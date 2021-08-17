@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class FileController {
             @ApiImplicitParam(name = "file", value = "要上传的文件")
     })
     public R<String> fileUpload(@RequestParam("file")MultipartFile file) throws IOException {
-        /**
+        /*
          * 1. bucketName: 桶的名称
          * 2. 文件名称
          * 3. 文件的输入流
@@ -87,7 +88,7 @@ public class FileController {
      * @param expireTime    超时时间
      * @param maxFileSize   文件最大Size
      * @param dir           文件夹路径
-     * @return
+     * @return Policy
      */
     private Map<String, String> getUploadPolicy(Long expireTime, Long maxFileSize, String dir) {
         long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
@@ -100,7 +101,7 @@ public class FileController {
         try {
             // 生产一个票据
             String postPolicy = ossClient.generatePostPolicy(expiration, policyConds);
-            byte[] binaryData = postPolicy.getBytes("utf-8");
+            byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
             String encodedPolicy = BinaryUtil.toBase64String(binaryData);
             String postSignature = ossClient.calculatePostSignature(postPolicy);
 
@@ -109,12 +110,12 @@ public class FileController {
             respMap.put("policy", encodedPolicy);
             respMap.put("signature", postSignature);
             respMap.put("dir", dir);
-            respMap.put("host", "https://" + bucketName + "." + endPointAddress);
+            respMap.put("host", "https://" + bucketName + "." + endPointAddress);  // https://bucket.endPoint
             respMap.put("expire", String.valueOf(expireEndTime / 1000));
             // respMap.put("expire", formatISO8601Date(expiration));
 
             JSONObject jasonCallback = new JSONObject();
-            // 回调地址POST，需要是一个公网地址，我先编一个，
+            // 回调地址POST，需要是一个公网地址，我先编一个
             jasonCallback.put("callbackUrl", callbackUrl);
             jasonCallback.put("callbackBody",
                     "filename=${object}&size=${size}&mimeType=${mimeType}&height=${imageInfo.height}&width=${imageInfo.width}");

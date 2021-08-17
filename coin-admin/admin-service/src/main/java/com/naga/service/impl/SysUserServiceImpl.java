@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.naga.domain.SysUserRole;
+import com.naga.dto.SysUserDto;
+import com.naga.maps.SysUserDtoMapper;
 import com.naga.service.SysUserRoleService;
 import com.naga.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -87,6 +90,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 重新保存用户角色
         saveUserRoleShip(sysUser.getRoleStrings(), sysUser.getId());
         return false;
+    }
+
+    /**
+     * 根据管理员用户ID查询管理员基础信息
+     * @param userId    管理员用户逐渐
+     * @return  管理员用户基础信息SysUserDto
+     */
+    @Override
+    public SysUserDto getSysUserInfo(Long userId) {
+        SysUser sysUser = this.getById(userId);
+        if (Objects.isNull(sysUser)) {
+            return null;
+        }
+        return SysUserDtoMapper.INSTANCE.convert2Dto(sysUser);
     }
 
     private void saveUserRoleShip(String roleStrings, Long userId) {

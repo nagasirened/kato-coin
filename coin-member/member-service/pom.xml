@@ -47,6 +47,12 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.naga</groupId>
+            <artifactId>admin-api</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
