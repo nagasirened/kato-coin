@@ -269,6 +269,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean updatePhone(UpdatePhoneParam updatePhoneParam) {
         long userId = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         User user = getById(userId);
+        if (Objects.isNull(user)) {
+            throw new RuntimeException("处理异常，请重新登录");
+        }
         // 验证新旧手机的验证码
         String oldVerifyCode = String.valueOf(Optional.ofNullable(redisTemplate.opsForValue().get("SMS:VERIFY_OLD_PHONE:" + user.getMobile())).orElse(""));
         if (!updatePhoneParam.getOldValidateCode().equals(oldVerifyCode)) {
