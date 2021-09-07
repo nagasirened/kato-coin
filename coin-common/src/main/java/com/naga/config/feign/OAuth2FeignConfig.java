@@ -11,6 +11,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 该类使用在FeignClient中用于token的传递，即服务之间相互调用时，需要传递token进行用户验证
+ */
 @Slf4j
 public class OAuth2FeignConfig implements RequestInterceptor {
 

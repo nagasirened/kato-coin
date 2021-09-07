@@ -296,7 +296,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean checkNewPhone(String mobile, String countryCode) {
         int count = count(new LambdaQueryWrapper<User>()
                 .eq(User::getMobile, mobile)
-                .eq(User::getCountryCode,countryCode));
+                .eq(User::getCountryCode, countryCode));
         // 有用户占用这个手机号
         if(count>0) {
             throw new IllegalArgumentException("该手机号已经被占用");
