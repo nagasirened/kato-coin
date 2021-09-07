@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.CashRechargeMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.CashRecharge">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="coinId" column="coin_id" jdbcType="BIGINT"/>
+            <result property="coinName" column="coin_name" jdbcType="VARCHAR"/>
+            <result property="num" column="num" jdbcType="DECIMAL"/>
+            <result property="fee" column="fee" jdbcType="DECIMAL"/>
+            <result property="feecoin" column="feecoin" jdbcType="VARCHAR"/>
+            <result property="mum" column="mum" jdbcType="DECIMAL"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="tradeno" column="tradeno" jdbcType="VARCHAR"/>
+            <result property="outtradeno" column="outtradeno" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="auditRemark" column="audit_remark" jdbcType="VARCHAR"/>
+            <result property="step" column="step" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="bankCard" column="bank_card" jdbcType="VARCHAR"/>
+            <result property="lastTime" column="last_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,coin_id,
+        coin_name,num,fee,
+        feecoin,mum,type,
+        tradeno,outtradeno,remark,
+        audit_remark,step,status,
+        created,last_update_time,name,
+        bank_name,bank_card,last_time
+    </sql>
+</mapper>

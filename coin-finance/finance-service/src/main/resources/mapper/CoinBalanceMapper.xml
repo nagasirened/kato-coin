@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.CoinBalanceMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.CoinBalance">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="coinId" column="coin_id" jdbcType="BIGINT"/>
+            <result property="coinName" column="coin_name" jdbcType="VARCHAR"/>
+            <result property="systemBalance" column="system_balance" jdbcType="DECIMAL"/>
+            <result property="coinType" column="coin_type" jdbcType="VARCHAR"/>
+            <result property="collectAccountBalance" column="collect_account_balance" jdbcType="DECIMAL"/>
+            <result property="loanAccountBalance" column="loan_account_balance" jdbcType="DECIMAL"/>
+            <result property="feeAccountBalance" column="fee_account_balance" jdbcType="DECIMAL"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+            <result property="rechargeAccountBalance" column="recharge_account_balance" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,coin_id,coin_name,
+        system_balance,coin_type,collect_account_balance,
+        loan_account_balance,fee_account_balance,last_update_time,
+        created,recharge_account_balance
+    </sql>
+</mapper>

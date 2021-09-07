@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.AccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.Account">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="coinId" column="coin_id" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="balanceAmount" column="balance_amount" jdbcType="DECIMAL"/>
+            <result property="freezeAmount" column="freeze_amount" jdbcType="DECIMAL"/>
+            <result property="rechargeAmount" column="recharge_amount" jdbcType="DECIMAL"/>
+            <result property="withdrawalsAmount" column="withdrawals_amount" jdbcType="DECIMAL"/>
+            <result property="netValue" column="net_value" jdbcType="DECIMAL"/>
+            <result property="lockMargin" column="lock_margin" jdbcType="DECIMAL"/>
+            <result property="floatProfit" column="float_profit" jdbcType="DECIMAL"/>
+            <result property="totalProfit" column="total_profit" jdbcType="DECIMAL"/>
+            <result property="recAddr" column="rec_addr" jdbcType="VARCHAR"/>
+            <result property="version" column="version" jdbcType="BIGINT"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,coin_id,
+        status,balance_amount,freeze_amount,
+        recharge_amount,withdrawals_amount,net_value,
+        lock_margin,float_profit,total_profit,
+        rec_addr,version,last_update_time,
+        created
+    </sql>
+</mapper>

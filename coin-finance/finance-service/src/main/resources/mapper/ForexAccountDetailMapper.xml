@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.ForexAccountDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.ForexAccountDetail">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="accountId" column="account_id" jdbcType="BIGINT"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account_id,type,
+        amount,remark,created
+    </sql>
+</mapper>

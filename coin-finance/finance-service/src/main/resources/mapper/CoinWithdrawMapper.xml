@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.CoinWithdrawMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.CoinWithdraw">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="coinId" column="coin_id" jdbcType="BIGINT"/>
+            <result property="coinName" column="coin_name" jdbcType="VARCHAR"/>
+            <result property="coinType" column="coin_type" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="txid" column="txid" jdbcType="VARCHAR"/>
+            <result property="num" column="num" jdbcType="DECIMAL"/>
+            <result property="fee" column="fee" jdbcType="DECIMAL"/>
+            <result property="mum" column="mum" jdbcType="DECIMAL"/>
+            <result property="type" column="type" jdbcType="BOOLEAN"/>
+            <result property="chainFee" column="chain_fee" jdbcType="DECIMAL"/>
+            <result property="blockNum" column="block_num" jdbcType="INTEGER"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="walletMark" column="wallet_mark" jdbcType="VARCHAR"/>
+            <result property="step" column="step" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,coin_id,
+        coin_name,coin_type,address,
+        txid,num,fee,
+        mum,type,chain_fee,
+        block_num,remark,wallet_mark,
+        step,status,audit_time,
+        last_update_time,created
+    </sql>
+</mapper>

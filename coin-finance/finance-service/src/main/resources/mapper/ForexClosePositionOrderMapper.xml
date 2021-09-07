@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.ForexClosePositionOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.ForexClosePositionOrder">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="marketId" column="market_id" jdbcType="BIGINT"/>
+            <result property="marketName" column="market_name" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="accountId" column="account_id" jdbcType="BIGINT"/>
+            <result property="entrustOrderId" column="entrust_order_id" jdbcType="BIGINT"/>
+            <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="num" column="num" jdbcType="DECIMAL"/>
+            <result property="openId" column="open_id" jdbcType="BIGINT"/>
+            <result property="profit" column="profit" jdbcType="DECIMAL"/>
+            <result property="unlockMargin" column="unlock_margin" jdbcType="DECIMAL"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,market_id,
+        market_name,type,account_id,
+        entrust_order_id,order_id,price,
+        num,open_id,profit,
+        unlock_margin,last_update_time,created
+    </sql>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naga.mapper.CoinMapper">
+
+    <resultMap id="BaseResultMap" type="com.naga.domain.Coin">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="img" column="img" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="wallet" column="wallet" jdbcType="VARCHAR"/>
+            <result property="round" column="round" jdbcType="TINYINT"/>
+            <result property="baseAmount" column="base_amount" jdbcType="DECIMAL"/>
+            <result property="minAmount" column="min_amount" jdbcType="DECIMAL"/>
+            <result property="maxAmount" column="max_amount" jdbcType="DECIMAL"/>
+            <result property="dayMaxAmount" column="day_max_amount" jdbcType="DECIMAL"/>
+            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="autoOut" column="auto_out" jdbcType="DOUBLE"/>
+            <result property="rate" column="rate" jdbcType="DOUBLE"/>
+            <result property="minFeeNum" column="min_fee_num" jdbcType="DECIMAL"/>
+            <result property="withdrawFlag" column="withdraw_flag" jdbcType="TINYINT"/>
+            <result property="rechargeFlag" column="recharge_flag" jdbcType="TINYINT"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,title,
+        img,type,wallet,
+        round,base_amount,min_amount,
+        max_amount,day_max_amount,status,
+        auto_out,rate,min_fee_num,
+        withdraw_flag,recharge_flag,last_update_time,
+        created
+    </sql>
+</mapper>
