@@ -26,6 +26,12 @@ spring:
             - Path=/user/**
           filters:
             - StripPrefix=1
+        - id: member-service-router
+          uri: lb://finance-service
+          predicates:
+            - Path=/finance/**
+          filters:
+            - StripPrefix=1
 
         - id: test-router
           uri: https://www.baidu.com/
