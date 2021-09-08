@@ -75,7 +75,7 @@ public class User {
      */
     @TableField(value = "paypass_setting")
     @ApiModelProperty(value="交易密码设置状态")
-    private Boolean paypassSetting;
+    private Byte paypassSetting;
 
     /**
      * 邮箱
@@ -117,7 +117,7 @@ public class User {
      */
     @TableField(value = "ga_status")
     @ApiModelProperty(value="Google认证开启状态,0,未启用，1启用")
-    private Boolean gaStatus;
+    private Byte gaStatus;
 
     /**
      * 身份证号

@@ -8,7 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="coinId" column="coin_id" jdbcType="BIGINT"/>
-            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="balanceAmount" column="balance_amount" jdbcType="DECIMAL"/>
             <result property="freezeAmount" column="freeze_amount" jdbcType="DECIMAL"/>
             <result property="rechargeAmount" column="recharge_amount" jdbcType="DECIMAL"/>

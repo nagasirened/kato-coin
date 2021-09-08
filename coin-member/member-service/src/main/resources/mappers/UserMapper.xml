@@ -11,13 +11,13 @@
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="paypassword" jdbcType="VARCHAR" property="paypassword" />
-    <result column="paypass_setting" jdbcType="BOOLEAN" property="paypassSetting" />
+    <result column="paypass_setting" jdbcType="TINYINT" property="paypassSetting" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="id_card_type" jdbcType="BOOLEAN" property="idCardType" />
+    <result column="id_card_type" jdbcType="TINYINT" property="idCardType" />
     <result column="auth_status" jdbcType="TINYINT" property="authStatus" />
     <result column="ga_secret" jdbcType="VARCHAR" property="gaSecret" />
-    <result column="ga_status" jdbcType="BOOLEAN" property="gaStatus" />
+    <result column="ga_status" jdbcType="TINYINT" property="gaStatus" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="authtime" jdbcType="TIMESTAMP" property="authtime" />

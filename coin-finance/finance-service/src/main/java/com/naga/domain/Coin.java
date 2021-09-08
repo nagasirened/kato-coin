@@ -101,7 +101,7 @@ public class Coin implements Serializable {
      */
     @ApiModelProperty(value = "status1：启用0：禁用")
     @TableField(value = "status")
-    private Boolean status;
+    private Byte status;
 
     /**
      * 自动转出数量

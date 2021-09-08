@@ -9,7 +9,7 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="sort" column="sort" jdbcType="TINYINT"/>
-            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
             <result property="created" column="created" jdbcType="TIMESTAMP"/>
     </resultMap>

@@ -10,7 +10,7 @@
     <result column="answer_name" jdbcType="VARCHAR" property="answerName" />
     <result column="question" jdbcType="LONGVARCHAR" property="question" />
     <result column="answer" jdbcType="LONGVARCHAR" property="answer" />
-    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>

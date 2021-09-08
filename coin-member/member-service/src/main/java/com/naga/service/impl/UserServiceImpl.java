@@ -411,10 +411,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setMobile(registerParam.getMobile());
         String encodePwd = new BCryptPasswordEncoder().encode(registerParam.getPassword());
         user.setPassword(encodePwd);
-        user.setPaypassSetting(false);  // 未设置支付密码
-        user.setStatus(1);              // 可用
-        user.setType(1);                // normal User
-        user.setAuthStatus(0);          // 未认证
+        user.setPaypassSetting((byte)0);  // 未设置支付密码
+        user.setStatus(1);               // 可用
+        user.setType(1);                 // normal User
+        user.setAuthStatus(0);           // 未认证
         user.setLogins(0);
         user.setInviteCode(RandomUtil.randomString(6)); // 用户的邀请码
         if (!StringUtils.isEmpty(registerParam.getInvitionCode())) {

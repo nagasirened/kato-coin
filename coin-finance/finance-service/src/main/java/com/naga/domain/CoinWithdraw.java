@@ -93,7 +93,7 @@ public class CoinWithdraw implements Serializable {
      */
     @ApiModelProperty(value = "0站内1其他2手工提币")
     @TableField(value = "type")
-    private Boolean type;
+    private Byte type;
 
     /**
      * 链上手续费花费
@@ -135,7 +135,7 @@ public class CoinWithdraw implements Serializable {
      */
     @ApiModelProperty(value = "状态：0-审核中；1-成功；2-拒绝；3-撤销；4-审核通过；5-打币中")
     @TableField(value = "status")
-    private Boolean status;
+    private Byte status;
 
     /**
      * 审核时间

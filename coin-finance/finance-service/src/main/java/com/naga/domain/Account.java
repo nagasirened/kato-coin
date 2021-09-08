@@ -42,7 +42,7 @@ public class Account implements Serializable {
      */
     @ApiModelProperty(value = "账号状态：1，正常；2，冻结")
     @TableField(value = "status")
-    private Boolean status;
+    private Byte status;
 
     /**
      * 币种可用金额

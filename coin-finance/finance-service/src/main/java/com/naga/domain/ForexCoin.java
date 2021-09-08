@@ -51,7 +51,7 @@ public class ForexCoin implements Serializable {
      */
     @ApiModelProperty(value = "状态: 0禁用 1启用")
     @TableField(value = "status")
-    private Boolean status;
+    private Byte status;
 
     /**
      * 修改时间

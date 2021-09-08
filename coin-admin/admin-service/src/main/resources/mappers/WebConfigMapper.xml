@@ -11,7 +11,7 @@
     <result column="sort" jdbcType="SMALLINT" property="sort" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="url" jdbcType="LONGVARCHAR" property="url" />
-    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->

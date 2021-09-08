@@ -16,7 +16,7 @@
             <result property="minAmount" column="min_amount" jdbcType="DECIMAL"/>
             <result property="maxAmount" column="max_amount" jdbcType="DECIMAL"/>
             <result property="dayMaxAmount" column="day_max_amount" jdbcType="DECIMAL"/>
-            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="autoOut" column="auto_out" jdbcType="DOUBLE"/>
             <result property="rate" column="rate" jdbcType="DOUBLE"/>
             <result property="minFeeNum" column="min_fee_num" jdbcType="DECIMAL"/>

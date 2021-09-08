@@ -5,18 +5,18 @@
 <mapper namespace="com.naga.mapper.AccountDetailMapper">
 
     <resultMap id="BaseResultMap" type="com.naga.domain.AccountDetail">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="userId" column="user_id" jdbcType="BIGINT"/>
-            <result property="coinId" column="coin_id" jdbcType="BIGINT"/>
-            <result property="accountId" column="account_id" jdbcType="BIGINT"/>
-            <result property="refAccountId" column="ref_account_id" jdbcType="BIGINT"/>
-            <result property="orderId" column="order_id" jdbcType="BIGINT"/>
-            <result property="direction" column="direction" jdbcType="BOOLEAN"/>
-            <result property="businessType" column="business_type" jdbcType="VARCHAR"/>
-            <result property="amount" column="amount" jdbcType="DECIMAL"/>
-            <result property="fee" column="fee" jdbcType="DECIMAL"/>
-            <result property="remark" column="remark" jdbcType="VARCHAR"/>
-            <result property="created" column="created" jdbcType="TIMESTAMP"/>
+            <id property="id" column="id"/>
+            <result property="userId" column="user_id"/>
+            <result property="coinId" column="coin_id"/>
+            <result property="accountId" column="account_id"/>
+            <result property="refAccountId" column="ref_account_id"/>
+            <result property="orderId" column="order_id"/>
+            <result property="direction" column="direction"/>
+            <result property="businessType" column="business_type"/>
+            <result property="amount" column="amount"/>
+            <result property="fee" column="fee"/>
+            <result property="remark" column="remark"/>
+            <result property="created" column="created"/>
     </resultMap>
 
     <sql id="Base_Column_List">

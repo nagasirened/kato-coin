@@ -63,7 +63,7 @@ public class AccountDetail implements Serializable {
      */
     @ApiModelProperty(value = "入账为1，出账为2")
     @TableField(value = "direction")
-    private Boolean direction;
+    private Byte direction;
 
     /**
      * 业务类型:

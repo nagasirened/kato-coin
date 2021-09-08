@@ -15,13 +15,13 @@
             <result property="num" column="num" jdbcType="DECIMAL"/>
             <result property="fee" column="fee" jdbcType="DECIMAL"/>
             <result property="mum" column="mum" jdbcType="DECIMAL"/>
-            <result property="type" column="type" jdbcType="BOOLEAN"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
             <result property="chainFee" column="chain_fee" jdbcType="DECIMAL"/>
             <result property="blockNum" column="block_num" jdbcType="INTEGER"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
             <result property="walletMark" column="wallet_mark" jdbcType="VARCHAR"/>
             <result property="step" column="step" jdbcType="TINYINT"/>
-            <result property="status" column="status" jdbcType="BOOLEAN"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
             <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
             <result property="created" column="created" jdbcType="TIMESTAMP"/>
